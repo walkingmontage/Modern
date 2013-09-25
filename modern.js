@@ -3,8 +3,8 @@
  *
  * Released under the GPL license
  * http://www.gnu.org/licenses/gpl.html
- *
- * Creator: Yulin
+ * 
+ * https://github.com/squarepants/modern
  */
 "use strict";
 window.M = window.M || {};
@@ -65,13 +65,11 @@ M.extend({
 	}
 });
 
-//Array
 M.extend({
 	nodeListforEach:function(items,handler){
 		Array.prototype.forEach.call(items,handler);
 	}
 });
-
 
 M.extend({
 	// generate unique id in M
@@ -122,6 +120,7 @@ M.Element.eventHandlers = {
 };
 M.extend(NodeList.prototype,M.Element.eventHandlers);
 M.extend(Element.prototype,M.Element.eventHandlers);
+
 M.extend(HTMLDocument.prototype,{
 	domReady:function(evtHandler){
 		if(!M.isDomReady){
