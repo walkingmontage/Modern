@@ -1,9 +1,6 @@
 /*!
- * Modern JavaScript Library v1.0
- *
- * Released under the GPL license
- * http://www.gnu.org/licenses/gpl.html
- * 
+ * Modern JavaScript Library v1.0 [EYES FRONT]
+ * license GPL
  * https://github.com/squarepants/modern
  */
  "use strict";
@@ -97,6 +94,19 @@
 	}
 });
 
+//NodeList
+ M.extend(NodeList.prototype,{
+ 	forEach:function(handler,context){
+ 		if(!context){
+ 			Array.prototype.forEach.call(this,handler);
+ 		}else{
+ 			Array.prototype.forEach.call(this,function(ele,index,all){
+ 				handler.call(context,ele,index,all);
+ 			});
+ 		}
+ 	}
+ });
+
 //Event
  M.namespace('M.Element');
  M.Element.eventHandlers = {
@@ -138,18 +148,6 @@
  M.extend(NodeList.prototype,M.Element.eventHandlers);
  M.extend(Element.prototype,M.Element.eventHandlers);
 
-//NodeList
- M.extend(NodeList.prototype,{
- 	forEach:function(handler,context){
- 		if(!context){
- 			Array.prototype.forEach.call(this,handler);
- 		}else{
- 			Array.prototype.forEach.call(this,function(ele,index,all){
- 				handler.call(context,ele,index,all);
- 			});
- 		}
- 	}
- });
 
 //Form
  M.extend(HTMLFormElement.prototype,{

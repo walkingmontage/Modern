@@ -1,4 +1,8 @@
-modern
+Modern
 ======
+EYES FRONT
 
-javascript library for modern browsers that only care about what we need and made it as simple as possible.
+Javascript library for modern browsers that only care about what we need and we made it as simple as possible.mostly prototype extended.
+
+
+
