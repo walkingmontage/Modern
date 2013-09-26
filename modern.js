@@ -58,6 +58,7 @@
  	return target;
  }
 
+//Type
  M.extend({
  	isType:function(t,obj){
  		return (typeof obj === t);
@@ -73,6 +74,7 @@
  	}
  });
 
+//NameSpace
  M.extend({
 	// generate unique id in M
 	uid: function m_uid() {
@@ -95,18 +97,7 @@
 	}
 });
 
- M.extend(NodeList.prototype,{
- 	forEach:function(handler,context){
- 		if(!context){
- 			Array.prototype.forEach.call(this,handler);
- 		}else{
- 			Array.prototype.forEach.call(this,function(ele,index,all){
- 				handler.call(context,ele,index,all);
- 			});
- 		}
- 	}
- });
-
+//Event
  M.namespace('M.Element');
  M.Element.eventHandlers = {
  	on:function(evtName,evtHandler,context,useCapture){
@@ -147,6 +138,33 @@
  M.extend(NodeList.prototype,M.Element.eventHandlers);
  M.extend(Element.prototype,M.Element.eventHandlers);
 
+//NodeList
+ M.extend(NodeList.prototype,{
+ 	forEach:function(handler,context){
+ 		if(!context){
+ 			Array.prototype.forEach.call(this,handler);
+ 		}else{
+ 			Array.prototype.forEach.call(this,function(ele,index,all){
+ 				handler.call(context,ele,index,all);
+ 			});
+ 		}
+ 	}
+ });
+
+//Form
+ M.extend(HTMLFormElement.prototype,{
+ 	serialize:function(){
+ 		var appendingString = '';
+ 		var fields = M(this,'input:not([type=submit]),textarea,select');
+ 		fields.forEach(function(ele,index,all){
+ 			var field = (encodeURIComponent(ele.getAttribute('name')) + '=' + encodeURIComponent(ele.value));
+ 			appendingString+= (field + '&');
+ 		});
+ 		return appendingString.substring(0,appendingString.length-1);
+ 	}
+ });
+
+ //Document
  M.extend(HTMLDocument.prototype,{
  	domReady:function(handler){
  		if(!M.isDomReady){
@@ -171,17 +189,5 @@
  		}else{
  			handler();
  		}
- 	}
- });
-
- M.extend(HTMLFormElement.prototype,{
- 	serialize:function(){
- 		var appendingString = '';
- 		var fields = M(this,'input:not([type=submit]),textarea,select');
- 		fields.forEach(function(ele,index,all){
- 			var field = (encodeURIComponent(ele.getAttribute('name')) + '=' + encodeURIComponent(ele.value));
- 			appendingString+= (field + '&');
- 		});
- 		return appendingString.substring(0,appendingString.length-1);
  	}
  });
