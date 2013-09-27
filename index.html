@@ -3,90 +3,99 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <script type="text/javascript" src="javascripts/modernizr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
-    </script>
     <title>Modern by squarepants</title>
   </head>
 
   <body>
-    <a id="forkme_banner" href="https://github.com/squarepants/Modern">View on GitHub</a>
-    <div class="shell">
+    <header>
+      <div class="inner">
+        <h1>Modern</h1>
+        <h2>Javascript library for modern browsers that only care about what we need and we made it as simple as possible.mostly prototype extended.</h2>
+        <a href="https://github.com/squarepants/Modern" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-      <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>Modern</h1>
-            <h2>Javascript library for modern browsers that only care about what we need and we made it as simple as possible.mostly prototype extended.</h2>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-      </header>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h2>
+<a name="eyes-front--modern-js" class="anchor" href="#eyes-front--modern-js"><span class="octicon octicon-link"></span></a>EYES FRONT : Modern JS</h2>
 
-      <section id="downloads">
-        <span class="inner">
-          <a href="https://github.com/squarepants/Modern/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/squarepants/Modern/tarball/master" class="tgz"><em>download</em> .TGZ</a>
-        </span>
-      </section>
+<hr><h3>
+<a name="using-modern" class="anchor" href="#using-modern"><span class="octicon octicon-link"></span></a>Using Modern:</h3>
 
+<h4>
+<a name="extend" class="anchor" href="#extend"><span class="octicon octicon-link"></span></a>Extend</h4>
 
-      <span class="banner-fix"></span>
+<p><code>M.extend({source},{}) //source:default(M)</code></p>
 
+<h4>
+<a name="document-ready" class="anchor" href="#document-ready"><span class="octicon octicon-link"></span></a>Document ready:</h4>
 
-      <section id="main_content">
-        <h3>
-<a name="welcome-modern-js" class="anchor" href="#welcome-modern-js"><span class="octicon octicon-link"></span></a>Welcome Modern JS</h3>
+<p><code>document.ready(callback)</code></p>
 
-<p>Using Modern:</p>
+<h4>
+<a name="selector" class="anchor" href="#selector"><span class="octicon octicon-link"></span></a>Selector</h4>
 
-<pre><code>Document ready:
-document.ready(callback)
+<p><code>M(selector)  //return NodeList or HTMLElement</code></p>
 
-Selector
-M(selector)  //return NodeList or HTMLElement
+<h4>
+<a name="event-listener" class="anchor" href="#event-listener"><span class="octicon octicon-link"></span></a>Event Listener</h4>
 
-Event Listener
+<p><code>
 M(selector).on(eventName,callback,{context})
 or
 HTMLElement.on or NodeList.on
-
+</code>
+<code>
 M(selector).off(eventName,callback,{context})
 or
 HTMLElement.off or NodeList.off
+</code></p>
 
+<h4>
+<a name="nodelist-foreach" class="anchor" href="#nodelist-foreach"><span class="octicon octicon-link"></span></a>NodeList forEach</h4>
+
+<p><code>
 M(selector).forEach(callback)
 or NodeList.forEach
+</code></p>
 
-form.serialize()  //for x-www-form-urlencoded  form submit
-</code></pre>
-      </section>
+<h4>
+<a name="form" class="anchor" href="#form"><span class="octicon octicon-link"></span></a>Form</h4>
 
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <p>this project by <a href="https://github.com/squarepants">squarepants</a> can be found on <a href="https://github.com/squarepants/Modern">GitHub</a></p>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
-        <span class="octocat"></span>
-      </footer>
+<p><code>
+form.serialize()  //for x-www-form-urlencoded  and old servers
+</code></p>
+        </section>
 
+        <aside id="sidebar">
+          <a href="https://github.com/squarepants/Modern/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/squarepants/Modern/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/squarepants/Modern"></a> is maintained by <a href="https://github.com/squarepants">squarepants</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    
+  
   </body>
 </html>
