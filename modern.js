@@ -164,7 +164,7 @@
 
  //Document
  M.extend(HTMLDocument.prototype,{
- 	domReady:function(handler){
+ 	ready:function(handler){
  		if(!M.isDomReady){
  			var readyHandler;
  			if(!M.isDomLoading){
