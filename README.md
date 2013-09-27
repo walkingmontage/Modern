@@ -1,5 +1,35 @@
-Modern 
-======
-EYES FRONT
+## EYES FRONT : Modern JS
 
-Javascript library for modern browsers that only care about what we need and we made it as simple as possible.mostly prototype extended.
+***
+
+### Using Modern:
+
+#### Extend
+`M.extend({source},{}) //source:default(M)`
+
+#### Document ready:
+`document.ready(callback)`
+
+#### Selector
+`M(selector)  //return NodeList or HTMLElement`
+
+#### Event Listener
+`
+M(selector).on(eventName,callback,{context})
+or
+HTMLElement.on or NodeList.on
+`
+`
+M(selector).off(eventName,callback,{context})
+or
+HTMLElement.off or NodeList.off
+`
+#### NodeList forEach
+`
+M(selector).forEach(callback)
+or NodeList.forEach
+`
+#### Form
+`
+form.serialize()  //for x-www-form-urlencoded  and old servers
+`
