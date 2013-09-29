@@ -27,7 +27,7 @@
 
  M.Function = M.prototype = {}
  M.extend = M.Function.extend = function(){
- 	var source,	src, copy,
+ 	var source,	src, copy,name,
  	target = arguments[0] || {},
  	length = arguments.length,
  	i = 1;
