@@ -164,20 +164,36 @@
 
  //Document
  M.extend(HTMLDocument.prototype,{
- 	ready:function(handler){
+ 	ready:function(handler,flag){
  		if(!M.isDomReady){
  			var readyHandler;
  			if(!M.isDomLoading){
- 				M.readyHandlers = M.readyHandlers || [];
- 				M.readyHandlers.push(handler);
+ 				if(!flag){
+	 				M.readyHandlers = M.readyHandlers || [];
+	 				M.readyHandlers.push(handler);
+ 				}else{
+ 					if(flag==="start"){
+ 						M.startHandler = handler;
+ 					}else if(flag==='end'){
+ 						M.endHandler = handler;
+ 					}
+ 				}
  				readyHandler = function(){
  					this.removeEventListener("DOMContentLoaded",readyHandler);
  					M.isDomReady = true;
  					M.isDomLoading = false;
+ 					if(M.startHandler){
+ 						M.startHandler();
+ 					}
  					M.readyHandlers.forEach(function(handler,index,all){
  						handler();
  					});
- 					M.readyHandlers = null;
+ 					if(M.endHandler){
+ 						M.endHandler();
+ 					}
+ 					delete M.readyHandlers;
+ 					delete M.startHandler;
+ 					delete M.endHandler;
  				}
  				M.isDomLoading = true;
  				this.addEventListener("DOMContentLoaded",readyHandler);
