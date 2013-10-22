@@ -8,7 +8,7 @@
 `M.extend({source},{}) //source:default(M)`
 
 #### Document ready:
-`document.ready(callback)`
+`document.ready(callback{,flag('start'||'end')})`
 
 #### Selector
 `M(selector)  //return NodeList or HTMLElement`

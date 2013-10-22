@@ -164,41 +164,41 @@
 
  //Document
  M.extend(HTMLDocument.prototype,{
- 	ready:function(handler,flag){
+ 	ready:function(handler,seque){
  		if(!M.isDomReady){
  			var readyHandler;
  			if(!M.isDomLoading){
- 				if(!flag){
-	 				M.readyHandlers = M.readyHandlers || [];
-	 				M.readyHandlers.push(handler);
- 				}else{
- 					if(flag==="start"){
- 						M.startHandler = handler;
- 					}else if(flag==='end'){
- 						M.endHandler = handler;
- 					}
- 				}
+ 				M.readyHandlers = M.readyHandlers || [];
+ 				M.readyHandlers.push(handler);
  				readyHandler = function(){
  					this.removeEventListener("DOMContentLoaded",readyHandler);
  					M.isDomReady = true;
  					M.isDomLoading = false;
  					if(M.startHandler){
  						M.startHandler();
+ 						delete M.startHandler;
  					}
  					M.readyHandlers.forEach(function(handler,index,all){
  						handler();
  					});
+ 					delete M.readyHandlers;
  					if(M.endHandler){
  						M.endHandler();
+ 						delete M.endHandler;
  					}
- 					delete M.readyHandlers;
- 					delete M.startHandler;
- 					delete M.endHandler;
  				}
  				M.isDomLoading = true;
  				this.addEventListener("DOMContentLoaded",readyHandler);
  			}else{
- 				M.readyHandlers.push(handler);
+		 		if(seque){
+		 			if(seque==="start"){
+		 				M.startHandler = handler;
+		 			}else if(seque==='end'){
+		 				M.endHandler = handler;
+		 			}
+		 		}else{
+		 			M.readyHandlers.push(handler);
+		 		}
  			}
  		}else{
  			handler();
