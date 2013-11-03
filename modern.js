@@ -89,7 +89,7 @@
  });
 
 //NameSpace
- M.extend({
+M.extend({
 	// generate unique id in M
 	uid: function m_uid() {
 		if (!M._uid) {
@@ -111,73 +111,97 @@
 	}
 });
 
-//NodeList
- M.extend(NodeList.prototype,{
- 	forEach:function(handler,context){
- 		if(!context){
- 			Array.prototype.forEach.call(this,handler);
- 		}else{
- 			Array.prototype.forEach.call(this,function(ele,index,all){
- 				handler.call(context,ele,index,all);
- 			});
- 		}
- 	}
- });
+//Event & Element
+M.namespace('M.Element');
 
-//Event
- M.namespace('M.Element');
- M.Element.eventHandlers = {
- 	on:function(evtName,evtHandler,context,useCapture){
- 		this.elesEvt(true,evtName,evtHandler,context,useCapture);
- 	},
- 	off:function(evtName,evtHandler,context,useCapture){
- 		this.elesEvt(false,evtName,evtHandler,context,useCapture);
- 	},
- 	eleEvt:function(on,evtName,evtHandler,context,useCapture){
- 		if(on){
- 			if(!context){
- 				this.addEventListener(evtName,evtHandler,!!useCapture);
- 			}else{
- 				this.addEventListener(evtName,function(e){
- 					evtHandler.call(context,e,this);
- 				},!!useCapture);
- 			}
- 		}else{
- 			if(!context){
- 				this.removeEventListener(evtName,evtHandler,!!useCapture);
- 			}else{
- 				this.removeEventListener(evtName,function(e){
- 					evtHandler.call(context,e,this);
- 				},!!useCapture);
- 			}
- 		}
- 	},
- 	elesEvt:function(on,evtName,evtHandler,context,useCapture){
- 		if(M.isNodeList(this)){
- 			this.forEach(function(ele,index,all){
- 				ele.eleEvt(on,evtName,evtHandler,context,useCapture);
- 			});
- 		}else{
- 			this.eleEvt(on,evtName,evtHandler,context,useCapture);
- 		}
- 	}
- };
- M.extend(NodeList.prototype,M.Element.eventHandlers);
- M.extend(Element.prototype,M.Element.eventHandlers);
+M.Element.forEach = {
+	forEach:function(handler,context){
+		if(!context){
+			Array.prototype.forEach.call(this,handler);
+		}else{
+			Array.prototype.forEach.call(this,function(ele,index,all){
+				handler.call(context,ele,index,all);
+			});
+		}
+	}
+}
 
+M.extend(NodeList.prototype,M.Element.forEach);
+M.extend(HTMLCollection.prototype,M.Element.forEach);
+
+M.Element.eventHandlers = {
+	on:function(evtName,evtHandler,context,useCapture){
+		this.elesEvt(true,evtName,evtHandler,context,useCapture);
+	},
+	off:function(evtName,evtHandler,context,useCapture){
+		this.elesEvt(false,evtName,evtHandler,context,useCapture);
+	},
+	eleEvt:function(on,evtName,evtHandler,context,useCapture){
+		if(on){
+			if(!context){
+				this.addEventListener(evtName,evtHandler,!!useCapture);
+			}else{
+				this.addEventListener(evtName,function(e){
+					evtHandler.call(context,e,this);
+				},!!useCapture);
+			}
+		}else{
+			if(!context){
+				this.removeEventListener(evtName,evtHandler,!!useCapture);
+			}else{
+				this.removeEventListener(evtName,function(e){
+					evtHandler.call(context,e,this);
+				},!!useCapture);
+			}
+		}
+	},
+	elesEvt:function(on,evtName,evtHandler,context,useCapture){
+		if(M.isNodeList(this) || M.isHTMLCollection(this)){
+			this.forEach(function(ele,index,all){
+				ele.eleEvt(on,evtName,evtHandler,context,useCapture);
+			});
+		}else{
+			this.eleEvt(on,evtName,evtHandler,context,useCapture);
+		}
+	}
+};
+M.extend(NodeList.prototype,M.Element.eventHandlers);
+M.extend(HTMLCollection.prototype,M.Element.eventHandlers);
+M.extend(Element.prototype,M.Element.eventHandlers);
+
+//append
+M.Element.append = {
+	append:function(_str_){
+		var cover = document.createElement('a');
+		cover.innerHTML = _str_;
+		var eles = cover.children;
+		if(M.isNodeList(this) || M.isHTMLCollection(this)){
+			this.forEach(function(target){
+				target.append.call(target,_str_);
+			});
+		}else{
+			eles.forEach(function(ele){
+				this.appendChild(ele);
+			},this)
+		}
+	}
+}
+M.extend(NodeList.prototype,M.Element.append);
+M.extend(HTMLCollection.prototype,M.Element.append);
+M.extend(Element.prototype,M.Element.append);
 
 //Form
- M.extend(HTMLFormElement.prototype,{
- 	serialize:function(){
- 		var appendingString = '';
- 		var fields = M(this,'input:not([type=submit]),textarea,select');
- 		fields.forEach(function(ele,index,all){
- 			var field = (encodeURIComponent(ele.getAttribute('name')) + '=' + encodeURIComponent(ele.value));
- 			appendingString+= (field + '&');
- 		});
- 		return appendingString.substring(0,appendingString.length-1);
- 	}
- });
+M.extend(HTMLFormElement.prototype,{
+	serialize:function(){
+		var appendingString = '';
+		var fields = M(this,'input:not([type=submit]),textarea,select');
+		fields.forEach(function(ele,index,all){
+			var field = (encodeURIComponent(ele.getAttribute('name')) + '=' + encodeURIComponent(ele.value));
+			appendingString+= (field + '&');
+		});
+		return appendingString.substring(0,appendingString.length-1);
+	}
+});
 
  //Document
  M.extend(HTMLDocument.prototype,{
@@ -207,15 +231,15 @@
  				M.isDomLoading = true;
  				this.addEventListener("DOMContentLoaded",readyHandler);
  			}else{
-		 		if(seque){
-		 			if(seque==="start"){
-		 				M.startHandler = handler;
-		 			}else if(seque==='end'){
-		 				M.endHandler = handler;
-		 			}
-		 		}else{
-		 			M.readyHandlers.push(handler);
-		 		}
+ 				if(seque){
+ 					if(seque==="start"){
+ 						M.startHandler = handler;
+ 					}else if(seque==='end'){
+ 						M.endHandler = handler;
+ 					}
+ 				}else{
+ 					M.readyHandlers.push(handler);
+ 				}
  			}
  		}else{
  			handler();
