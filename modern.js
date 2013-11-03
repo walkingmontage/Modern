@@ -58,16 +58,33 @@
 //Type
  M.extend({
  	isType:function(t,obj){
- 		return (typeof obj === t);
+ 		return (toString.call(obj) === '[object '+t+']');
  	},
- 	isTypeObject:function(obj){
- 		return this.isType('object',obj);
+ 	isObject:function(obj){
+ 		return obj == null ? false : this.isType('Object',obj);
  	},
- 	isTypeFunction:function(obj){
- 		return this.isType('function',obj);
+ 	isString:function(obj){
+ 		return this.isType('String',obj);
+ 	},
+ 	isArray:function(obj){
+ 		return this.isType('Array',obj);
+ 	},
+ 	isFunction:function(obj){
+ 		return this.isType('Function',obj);
+ 	},
+ 	isArguments:function(obj){
+ 		return this.isType('Arguments',obj);
  	},
  	isNodeList:function(obj){
- 		return (obj instanceof NodeList);
+ 		return this.isType('NodeList',obj);
+ 	},
+ 	//deprecated
+ 	isTypeObject:function(obj){
+ 		return this.isType('Object',obj);
+ 	},
+ 	//deprecated
+ 	isTypeFunction:function(obj){
+ 		return this.isType('Function',obj);
  	}
  });
 
