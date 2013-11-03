@@ -78,6 +78,9 @@
  	isNodeList:function(obj){
  		return this.isType('NodeList',obj);
  	},
+ 	isHTMLCollection:function(obj){
+ 		return this.isType('HTMLCollection',obj);
+ 	},
  	//deprecated
  	isTypeObject:function(obj){
  		return this.isType('Object',obj);
