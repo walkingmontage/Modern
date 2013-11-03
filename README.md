@@ -17,17 +17,24 @@
 `
 M(selector).on(eventName,callback,{context})
 or
-HTMLElement.on or NodeList.on
+HTMLElement.on or NodeList.on or HTMLCollection.off
 `
 `
 M(selector).off(eventName,callback,{context})
 or
-HTMLElement.off or NodeList.off
+HTMLElement.off or NodeList.off or HTMLCollection.off
 `
-#### NodeList forEach
+#### NodeList & HTMLCollection forEach
 `
-M(selector).forEach(callback)
+M(selector).forEach(callback{,context})
 or NodeList.forEach
+or HTMLCollection.forEach
+`
+#### append
+`
+HTMLElement.append(rawHtmlString)
+NodeList.append(rawHtmlString)
+HTMLCollection.append(rawHtmlString)
 `
 #### Form
 `
