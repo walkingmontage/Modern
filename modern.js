@@ -58,7 +58,7 @@
 //Type
  M.extend({
  	isType:function(t,obj){
- 		return (toString.call(obj) === '[object '+t+']');
+ 		return (Object.prototype.toString.call(obj) === '[object '+ t +']');
  	},
  	isObject:function(obj){
  		return obj == null ? false : this.isType('Object',obj);
