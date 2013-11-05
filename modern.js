@@ -128,7 +128,11 @@ M.Element.forEach = {
 		}
 	}
 }
-
+M.extend(Element.prototype,{
+	forEach:function(handler,context){
+		handler.call(context,this,0,1);
+	}
+})
 M.extend(NodeList.prototype,M.Element.forEach);
 M.extend(HTMLCollection.prototype,M.Element.forEach);
 
