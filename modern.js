@@ -223,7 +223,9 @@ M.extend(HTMLFormElement.prototype,{
  						delete M.startHandler;
  					}
  					M.readyHandlers.forEach(function(handler,index,all){
- 						handler();
+ 						if(handler){
+ 							handler();
+ 						}
  					});
  					delete M.readyHandlers;
  					if(M.endHandler){
